@@ -1,0 +1,60 @@
+<div class="employee-form">
+  <header>
+    <h1>{{ isEditMode ? 'Edit Employee Details' : 'Add Employee Details' }}</h1>
+  </header>
+
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <!-- Name -->
+    <div class="form-field">
+      <div class="input-group">
+        <i class="material-icons">person</i>
+        <input type="text" placeholder="Employee name" formControlName="name">
+      </div>
+    </div>
+
+    <!-- Role -->
+    <div class="form-field">
+      <div class="input-group">
+        <i class="material-icons">work</i>
+        <select formControlName="role">
+          <option value="" disabled selected>Select role</option>
+          <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Start & End Date -->
+    <div class="form-field dates">
+      <div class="input-group" (click)="openStartDatePicker($event)">
+        <i class="material-icons">event</i>
+        <input type="text" [value]="formatDate(employeeForm.get('startDate')?.value)" placeholder="Start date" readonly>
+      </div>
+      <span class="arrow">➝</span>
+      <div class="input-group" (click)="openEndDatePicker($event)">
+        <i class="material-icons">event</i>
+        <input type="text" [value]="formatDate(employeeForm.get('endDate')?.value)" placeholder="No date" readonly>
+      </div>
+    </div>
+
+    <!-- Date Pickers -->
+    <app-date-picker 
+      *ngIf="showStartDatePicker"
+      [selectedDate]="employeeForm.get('startDate')?.value"
+      (dateSelected)="onStartDateSelected($event)"
+      (cancel)="showStartDatePicker = false">
+    </app-date-picker>
+
+    <app-date-picker 
+      *ngIf="showEndDatePicker"
+      [selectedDate]="employeeForm.get('endDate')?.value"
+      (dateSelected)="onEndDateSelected($event)"
+      (cancel)="showEndDatePicker = false">
+    </app-date-picker>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
+      <button type="submit" class="save-btn" [disabled]="!employeeForm.valid">Save</button>
+    </div>
+  </form>
+</div>

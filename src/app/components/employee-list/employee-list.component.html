@@ -1,0 +1,68 @@
+<div class="employee-list">
+  <header>
+    <h1>Employee List</h1>
+  </header>
+
+  <main>
+    <ng-container *ngIf="currentEmployees().length || previousEmployees().length; else noEmployees">
+      <section class="current-employees" *ngIf="currentEmployees().length">
+        <h2>Current employees</h2>
+        <div class="employee-cards">
+          <div class="employee-card" 
+               *ngFor="let employee of currentEmployees()"
+               (click)="selectEmployee(employee.id!)"
+               [class.selected]="selectedEmployeeId() === employee.id">
+            <div class="employee-info">
+              <h3>{{ employee.name }}</h3>
+              <p class="role">{{ employee.role }}</p>
+              <p class="date">From {{ employee.startDate | date:'d MMM yyyy' }}</p>
+            </div>
+            <div class="slide-actions" [class.show]="selectedEmployeeId() === employee.id">
+              <button class="action-btn edit-btn" (click)="editEmployee($event, employee.id!)">
+                <i class="material-icons">edit</i>
+              </button>
+              <button class="action-btn delete-btn" (click)="deleteEmployee($event, employee.id!)">
+                <i class="material-icons">delete</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="previous-employees" *ngIf="previousEmployees().length">
+        <h2>Previous employees</h2>
+        <div class="employee-cards">
+          <div class="employee-card" 
+               *ngFor="let employee of previousEmployees()"
+               (click)="selectEmployee(employee.id!)"
+               [class.selected]="selectedEmployeeId() === employee.id">
+            <div class="employee-info">
+              <h3>{{ employee.name }}</h3>
+              <p class="role">{{ employee.role }}</p>
+              <p class="date">{{ employee.startDate | date:'d MMM yyyy' }} - {{ employee.endDate | date:'d MMM yyyy' }}</p>
+            </div>
+            <div class="slide-actions" [class.show]="selectedEmployeeId() === employee.id">
+              <button class="action-btn edit-btn" (click)="editEmployee($event, employee.id!)">
+                <i class="material-icons">edit</i>
+              </button>
+              <button class="action-btn delete-btn" (click)="deleteEmployee($event, employee.id!)">
+                <i class="material-icons">delete</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+
+    <ng-template #noEmployees>
+      <div class="no-employees">
+        <img src="assets/images/no-employees.svg" alt="No employees">
+        <p>No employee records found</p>
+      </div>
+    </ng-template>
+  </main>
+
+  <button class="add-btn" (click)="addEmployee()">
+    <i class="material-icons">add</i>
+  </button>
+</div>
