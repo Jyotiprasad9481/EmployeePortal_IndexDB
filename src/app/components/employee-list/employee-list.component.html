@@ -1,8 +1,4 @@
 <div class="employee-list">
-  <header>
-    <h1>Employee List</h1>
-  </header>
-
   <main>
     <ng-container *ngIf="currentEmployees().length || previousEmployees().length; else noEmployees">
       <section class="current-employees" *ngIf="currentEmployees().length">

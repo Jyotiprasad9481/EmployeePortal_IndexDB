@@ -1,7 +1,4 @@
 <div class="employee-form">
-  <header>
-    <h1>{{ isEditMode ? 'Edit Employee Details' : 'Add Employee Details' }}</h1>
-  </header>
 
   <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
     <!-- Name -->

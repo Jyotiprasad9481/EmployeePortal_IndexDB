@@ -1,6 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Employee } from '../../models/employee.interface';
 import { IndexDBService } from '../../services/indexdb.service';
 
 @Component({
